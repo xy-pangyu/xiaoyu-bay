@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -21,10 +22,52 @@ class XiaoyuBayApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '小鱼霸业',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.orange,
-        fontFamily: 'PingFang',
-        useMaterial3: true,
+        fontFamily: GoogleFonts.poppins().fontFamily,
+        scaffoldBackgroundColor: Colors.grey[50],
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.orange,
+          foregroundColor: Colors.white,
+          titleTextStyle: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+        cardTheme: CardThemeData(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          clipBehavior: Clip.antiAlias,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.orange,
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Colors.orange, width: 2),
+          ),
+        ),
       ),
       home: const LoginPage(),
     );
@@ -171,7 +214,7 @@ class TodoItem {
   TodoItem({this.cityName, required this.type, this.opponent, this.isDone = false});
 }
 
-// ---------- 全局资源条组件 ----------
+// ---------- 全局资源条组件（美化）----------
 class ResourceBar extends StatelessWidget {
   final int gold;
   final int soldiers;
@@ -184,9 +227,9 @@ class ResourceBar extends StatelessWidget {
         color: Colors.orange[50],
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.3),
+            color: Colors.grey.withValues(alpha: 0.2),
             spreadRadius: 1,
-            blurRadius: 3,
+            blurRadius: 4,
             offset: const Offset(0, 2),
           ),
         ],
@@ -195,8 +238,8 @@ class ResourceBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildResourceItem(Icons.monetization_on, '💰 黄金', _formatNumber(gold), Colors.amber),
-          _buildResourceItem(Icons.shield, '⚔️ 士兵', soldiers.toString(), Colors.red),
+          _buildResourceItem(Icons.monetization_on, '黄金', _formatNumber(gold), Colors.amber),
+          _buildResourceItem(Icons.shield, '士兵', soldiers.toString(), Colors.red),
         ],
       ),
     );
@@ -213,17 +256,17 @@ class ResourceBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(30),
         border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
           Icon(icon, color: color, size: 20),
-          const SizedBox(width: 8),
+          const SizedBox(width: 6),
           Text(
             value,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               color: color,
             ),
@@ -232,7 +275,7 @@ class ResourceBar extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 12,
               color: Colors.grey[600],
             ),
           ),
@@ -242,7 +285,7 @@ class ResourceBar extends StatelessWidget {
   }
 }
 
-// ---------- 登录/注册页 ----------
+// ---------- 登录/注册页（美化）----------
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -275,16 +318,16 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 120,
-                    height: 120,
+                    width: 130,
+                    height: 130,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.orange.withValues(alpha: 0.5),
+                          color: Colors.orange.withValues(alpha: 0.4),
                           spreadRadius: 5,
-                          blurRadius: 15,
-                          offset: const Offset(0, 3),
+                          blurRadius: 20,
+                          offset: const Offset(0, 5),
                         ),
                       ],
                     ),
@@ -292,16 +335,16 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(30),
                       child: Image.asset(
                         'assets/images/xybylogo.jpg',
-                        width: 120,
-                        height: 120,
+                        width: 130,
+                        height: 130,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   const SizedBox(height: 30),
-                  const Text(
+                  Text(
                     '小鱼霸业',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
                       color: Colors.orange,
@@ -309,93 +352,65 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    _isLogin ? '欢迎回来' : '创建新账号',
-                    style: TextStyle(
+                    _isLogin ? '私人应用' : '创建新账号',
+                    style: GoogleFonts.poppins(
                       fontSize: 18,
                       color: Colors.grey[600],
                     ),
                   ),
                   const SizedBox(height: 40),
 
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                  Card(
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withValues(alpha: 0.1),
-                          spreadRadius: 5,
-                          blurRadius: 10,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
                     ),
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: _userController,
-                          decoration: InputDecoration(
-                            labelText: '用户名',
-                            prefixIcon: const Icon(Icons.person, color: Colors.orange),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: const BorderSide(color: Colors.orange, width: 2),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _pwdController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: '密码',
-                            prefixIcon: const Icon(Icons.lock, color: Colors.orange),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: const BorderSide(color: Colors.orange, width: 2),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        if (!_isLogin)
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
                           TextField(
-                            controller: _confirmPwdController,
+                            controller: _userController,
+                            decoration: InputDecoration(
+                              labelText: '用户名',
+                              prefixIcon: const Icon(Icons.person, color: Colors.orange),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          TextField(
+                            controller: _pwdController,
                             obscureText: true,
                             decoration: InputDecoration(
-                              labelText: '确认密码',
-                              prefixIcon: const Icon(Icons.lock_outline, color: Colors.orange),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
+                              labelText: '密码',
+                              prefixIcon: const Icon(Icons.lock, color: Colors.orange),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          if (!_isLogin)
+                            TextField(
+                              controller: _confirmPwdController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                labelText: '确认密码',
+                                prefixIcon: const Icon(Icons.lock_outline, color: Colors.orange),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(color: Colors.orange, width: 2),
+                            ),
+                          const SizedBox(height: 24),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: _handleLogin,
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(vertical: 14),
+                              ),
+                              child: Text(
+                                _isLogin ? '登录' : '注册',
+                                style: const TextStyle(fontSize: 18),
                               ),
                             ),
                           ),
-                        const SizedBox(height: 24),
-                        ElevatedButton(
-                          onPressed: _handleLogin,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.orange,
-                            minimumSize: const Size(double.infinity, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: Text(
-                            _isLogin ? '登录' : '注册',
-                            style: const TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -410,7 +425,6 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Text(
                       _isLogin ? '还没有账号？立即注册' : '已有账号？去登录',
-                      style: const TextStyle(color: Colors.orange, fontSize: 16),
                     ),
                   ),
                 ],
@@ -445,15 +459,12 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // 使用 Firebase 匿名登录，用用户名作为身份标识
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
       String uid = userCredential.user!.uid;
 
-      // 判断是否为管理员
       bool isAdmin = (username == '992767100' && password == '20030516');
 
-      // 将用户名和权限存入 Firestore
       await FirebaseFirestore.instance.collection('players').doc(uid).set({
         'username': username,
         'isAdmin': isAdmin,
@@ -476,7 +487,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     } catch (e) {
-      _showSnackBar('登录失败，请重试');
+      print('登录错误: $e');
+      _showSnackBar('登录失败: ${e.toString()}');
     }
   }
 }
@@ -500,28 +512,28 @@ class GameHomePage extends StatefulWidget {
 class _GameHomePageState extends State<GameHomePage> {
   int _selectedIndex = 0;
 
-  // 玩家数据（来自 Firestore）
+  // 玩家数据
   int _gold = 0;
   int _soldiers = 0;
   int _rankIndex = 0;
   DateTime? _lastClaimDate;
   int _remainingUpgrades = 2;
 
-  // 所有城池（来自 Firestore）
+  // 所有城池
   List<City> _allCities = [];
 
-  // 宣战记录（来自 Firestore）
+  // 宣战记录
   Map<String, BattleRecord> _battleRecords = {};
 
   // 每小时宣战次数
   Map<String, int> _newAttacksThisHour = {};
   int _currentHour = -1;
 
-  // 待办列表（本地）
+  // 待办列表
   List<TodoItem> _todos = [];
 
-  // 活动奖励（全局配置，由管理员修改）
-  int _activityGoldReward = 10000; // 改为10000
+  // 活动奖励
+  int _activityGoldReward = 10000;
   int _activitySoldiersReward = 10;
 
   // 爵位列表
@@ -542,6 +554,12 @@ class _GameHomePageState extends State<GameHomePage> {
 
   // UID -> 用户名映射
   Map<String, String> _playerNames = {};
+
+  // 战争时间检查：18-24点
+  bool get isWarTime {
+    final hour = DateTime.now().hour;
+    return hour >= 18 && hour < 24;
+  }
 
   // 当前阶段
   GamePhase get currentPhase {
@@ -573,9 +591,7 @@ class _GameHomePageState extends State<GameHomePage> {
     super.dispose();
   }
 
-  // ---------- 数据加载和监听 ----------
   Future<void> _loadGameData() async {
-    // 监听玩家数据（当前用户）
     FirebaseFirestore.instance
         .collection('players')
         .doc(widget.uid)
@@ -592,7 +608,6 @@ class _GameHomePageState extends State<GameHomePage> {
       }
     });
 
-    // 监听所有玩家，构建用户名映射
     FirebaseFirestore.instance.collection('players').snapshots().listen((snapshot) {
       final Map<String, String> names = {};
       for (var doc in snapshot.docs) {
@@ -603,7 +618,6 @@ class _GameHomePageState extends State<GameHomePage> {
       });
     });
 
-    // 监听城池数据
     FirebaseFirestore.instance.collection('cities').snapshots().listen((snapshot) {
       List<City> cities = [];
       for (var doc in snapshot.docs) {
@@ -614,7 +628,6 @@ class _GameHomePageState extends State<GameHomePage> {
       });
     });
 
-    // 监听宣战记录
     FirebaseFirestore.instance.collection('battles').snapshots().listen((snapshot) {
       Map<String, BattleRecord> records = {};
       for (var doc in snapshot.docs) {
@@ -625,7 +638,6 @@ class _GameHomePageState extends State<GameHomePage> {
       });
     });
 
-    // 监听活动奖励配置
     FirebaseFirestore.instance
         .collection('config')
         .doc('activity')
@@ -639,9 +651,7 @@ class _GameHomePageState extends State<GameHomePage> {
       }
     });
 
-    // 如果城市集合为空，初始化城池数据
     await _initCitiesIfNeeded();
-    // 如果配置为空，初始化活动奖励
     await _initConfigIfNeeded();
   }
 
@@ -649,7 +659,6 @@ class _GameHomePageState extends State<GameHomePage> {
     final snapshot = await FirebaseFirestore.instance.collection('cities').limit(1).get();
     if (snapshot.docs.isNotEmpty) return;
 
-    // 构建邻居映射（同单机版）
     Map<String, List<String>> neighborMap = {
       '基尔村': ['波城'],
       '波城': ['阳城'],
@@ -725,7 +734,6 @@ class _GameHomePageState extends State<GameHomePage> {
       neighborMap.putIfAbsent(name, () => []);
     }
 
-    // 高级城列表
     final Set<String> highLevelCities = {
       '辽州天雪', '云落关', '萧州烟阳', '滇州苍郎', '安州天启',
       '澜州云梦', '渊州君泽', '太南院', '北凉关', '靖州安阳', '燕州燕然部'
@@ -814,7 +822,6 @@ class _GameHomePageState extends State<GameHomePage> {
       final minute = now.minute;
       final second = now.second;
 
-      // 在分钟边界触发阶段切换事件
       if (second == 0) {
         if (minute == 20) {
           _onCompetePhaseEnd();
@@ -825,27 +832,22 @@ class _GameHomePageState extends State<GameHomePage> {
     });
   }
 
-  // 抢宣阶段结束（20分钟）
   void _onCompetePhaseEnd() {
-    // 遍历所有未解决的记录
     for (var record in _battleRecords.values) {
       if (record.resolved) continue;
       final city = _allCities.firstWhere((c) => c.name == record.cityName);
       if (record.phase == BattlePhase.compete) {
         if (city.owner != null) {
-          // 有主城池：选出进攻方
           if (record.attackers.isNotEmpty) {
             final leader = record.topAttacker!;
             record.leadingAttacker = leader;
             record.phase = BattlePhase.attack;
-            // 退还其他攻击者的兵力
             for (var entry in record.attackers.entries) {
               if (entry.key != leader) {
                 _refundSoldiers(entry.key, entry.value);
               }
             }
             record.attackers = {leader: record.attackers[leader]!};
-            // 生成防守待办
             if (record.defender != null) {
               _todos.add(TodoItem(
                 cityName: record.cityName,
@@ -854,11 +856,9 @@ class _GameHomePageState extends State<GameHomePage> {
               ));
             }
           } else {
-            // 无人攻击，记录清除
             record.resolved = true;
           }
         } else {
-          // 无主城池：立即判定
           _resolveNeutralCity(record, city);
           record.resolved = true;
         }
@@ -867,13 +867,11 @@ class _GameHomePageState extends State<GameHomePage> {
     _saveAllToFirestore();
   }
 
-  // 进攻阶段结束（40分钟）
   void _onAttackPhaseEnd() {
     for (var record in _battleRecords.values) {
       if (record.resolved) continue;
       final city = _allCities.firstWhere((c) => c.name == record.cityName);
       if (record.phase == BattlePhase.attack) {
-        // 有主城池最终判定
         _resolveBattle(record, city);
         record.resolved = true;
       }
@@ -883,7 +881,6 @@ class _GameHomePageState extends State<GameHomePage> {
     _saveAllToFirestore();
   }
 
-  // 无主城池判定（立即）
   void _resolveNeutralCity(BattleRecord record, City city) {
     int total = record.totalAttackers;
     if (total >= city.requiredSoldiers) {
@@ -919,7 +916,6 @@ class _GameHomePageState extends State<GameHomePage> {
   }
 
   Future<void> _saveAllToFirestore() async {
-    // 保存玩家数据
     await FirebaseFirestore.instance.collection('players').doc(widget.uid).update({
       'gold': _gold,
       'soldiers': _soldiers,
@@ -927,12 +923,10 @@ class _GameHomePageState extends State<GameHomePage> {
       'remainingUpgrades': _remainingUpgrades,
     });
 
-    // 保存城池数据
     for (var city in _allCities) {
       await FirebaseFirestore.instance.collection('cities').doc(city.name).set(city.toJson());
     }
 
-    // 保存宣战记录
     for (var record in _battleRecords.values) {
       await FirebaseFirestore.instance
           .collection('battles')
@@ -941,17 +935,13 @@ class _GameHomePageState extends State<GameHomePage> {
     }
   }
 
-  // ---------- 修正可宣战城池列表 ----------
   List<City> _getAttackableCities() {
     final ownedNames = _ownedCities.map((c) => c.name).toSet();
     if (ownedNames.isEmpty) {
-      // 未落地：只能宣战飞地（无论是否已被宣战）
       return _allCities.where((c) => c.type == '飞地' && (c.owner == null || c.owner == widget.uid)).toList();
     }
-    // 已落地：所有相邻且符合以下条件的城池：无主 或者 有主但相邻（包括已被宣战的）
     final attackable = <City>[];
     for (var city in _allCities.where((c) => c.owner == null || c.owner != widget.uid)) {
-      // 排除已属于自己
       if (city.owner == widget.uid) continue;
       for (var neighbor in city.neighbors) {
         if (ownedNames.contains(neighbor)) {
@@ -963,8 +953,14 @@ class _GameHomePageState extends State<GameHomePage> {
     return attackable;
   }
 
-  // ---------- 宣战方法（只在宣战阶段可用）----------
   Future<void> _declareWar(City city) async {
+    if (!isWarTime) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('当前不是战争时间（18:00-24:00）'), backgroundColor: Colors.red),
+      );
+      return;
+    }
     if (currentPhase != GamePhase.declare) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -975,7 +971,6 @@ class _GameHomePageState extends State<GameHomePage> {
 
     final record = _battleRecords[city.name];
     if (record != null) {
-      // 已有记录，不能在宣战阶段重复宣战（因为宣战阶段只能新建，不能追加）
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('该城池已被宣战，请等待抢宣阶段'), backgroundColor: Colors.red),
@@ -1058,10 +1053,14 @@ class _GameHomePageState extends State<GameHomePage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('✅ 宣战成功！投入 $result 兵力'), backgroundColor: Colors.green),
     );
-  }
-
-  // ---------- 追加兵力（抢宣阶段和进攻阶段可用）----------
-  Future<void> _addTroops(BuildContext context, BattleRecord record, bool isAttacker) async {
+  }  Future<void> _addTroops(BuildContext context, BattleRecord record, bool isAttacker) async {
+    if (!isWarTime) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('当前不是战争时间（18:00-24:00）'), backgroundColor: Colors.red),
+      );
+      return;
+    }
     final phase = currentPhase;
     if (phase == GamePhase.finished) {
       if (!mounted) return;
@@ -1072,7 +1071,6 @@ class _GameHomePageState extends State<GameHomePage> {
     }
 
     if (phase == GamePhase.compete) {
-      // 抢宣阶段，所有参与进攻的玩家都可以追加
       if (!record.attackers.containsKey(widget.uid)) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -1081,7 +1079,6 @@ class _GameHomePageState extends State<GameHomePage> {
         return;
       }
     } else if (phase == GamePhase.attack) {
-      // 进攻阶段，只有进攻方（leadingAttacker）和防守方可以追加
       if (isAttacker && record.leadingAttacker != widget.uid) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -1097,7 +1094,6 @@ class _GameHomePageState extends State<GameHomePage> {
         return;
       }
     } else {
-      // 宣战阶段不能追加
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('当前阶段不能追加兵力'), backgroundColor: Colors.red),
@@ -1169,7 +1165,6 @@ class _GameHomePageState extends State<GameHomePage> {
         record.attackers[widget.uid] = (record.attackers[widget.uid] ?? 0) + result;
       });
       _saveAllToFirestore();
-      // 在抢宣阶段，领先变化时添加待办
       if (phase == GamePhase.compete) {
         _checkAndAddBattleOvertakenTodo(record);
       }
@@ -1181,7 +1176,6 @@ class _GameHomePageState extends State<GameHomePage> {
         ));
       }
     } else {
-      // 防守方追加
       if (_soldiers < result) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -1209,7 +1203,6 @@ class _GameHomePageState extends State<GameHomePage> {
     );
   }
 
-  // 检查并添加“被反超”待办（抢宣阶段）
   void _checkAndAddBattleOvertakenTodo(BattleRecord record) {
     if (record.attackers.length <= 1) return;
     final leader = record.topAttacker;
@@ -1223,8 +1216,13 @@ class _GameHomePageState extends State<GameHomePage> {
     }
   }
 
-  // 放弃（仅在进攻阶段可用）
   void _surrender(BattleRecord record, String player, bool isAttacker) {
+    if (!isWarTime) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('当前不是战争时间（18:00-24:00）'), backgroundColor: Colors.red),
+      );
+      return;
+    }
     if (currentPhase != GamePhase.attack) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('只能在进攻阶段放弃'), backgroundColor: Colors.red),
@@ -1239,7 +1237,6 @@ class _GameHomePageState extends State<GameHomePage> {
     _saveAllToFirestore();
   }
 
-  // 攻防判定（用于进攻阶段结束或放弃）
   void _resolveBattle(BattleRecord record, City city, {String? surrenderBy}) {
     if (record.resolved) return;
 
@@ -1426,6 +1423,7 @@ class _GameHomePageState extends State<GameHomePage> {
           uid: widget.uid,
           activityGold: _activityGoldReward,
           activitySoldiers: _activitySoldiersReward,
+          onPlayerDeleted: (deletedUid) {},
         ),
       ),
     );
@@ -1443,6 +1441,7 @@ class _GameHomePageState extends State<GameHomePage> {
           currentPlayer: widget.uid,
           playerNames: _playerNames,
           currentPhase: currentPhase,
+          isWarTime: isWarTime,
         ),
         const IntroPage(),
         ProfilePage(
@@ -1488,10 +1487,7 @@ class _GameHomePageState extends State<GameHomePage> {
       appBar: AppBar(
         title: Text(
           '${widget.username} 的霸业',
-          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.orange,
-        elevation: 0,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -1534,7 +1530,7 @@ enum GamePhase {
   finished,  // 40-60
 }
 
-// ---------- 地图页面 ----------
+// ---------- 地图页面（美化）----------
 class MapPage extends StatelessWidget {
   final int gold;
   final int soldiers;
@@ -1545,11 +1541,11 @@ class MapPage extends StatelessWidget {
     return Column(
       children: [
         ResourceBar(gold: gold, soldiers: soldiers),
-        const Padding(
-          padding: EdgeInsets.all(16.0),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Text(
             'S1地图',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
         Expanded(
@@ -1557,18 +1553,18 @@ class MapPage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withValues(alpha: 0.3),
                     spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
                   'assets/images/s1dt.jpeg',
                   fit: BoxFit.cover,
@@ -1597,7 +1593,7 @@ class MapPage extends StatelessWidget {
   }
 }
 
-// ---------- 宣战页面 ----------
+// ---------- 宣战页面（美化）----------
 class WarPage extends StatelessWidget {
   final int soldiers;
   final List<City> attackableCities;
@@ -1608,6 +1604,7 @@ class WarPage extends StatelessWidget {
   final String currentPlayer;
   final Map<String, String> playerNames;
   final GamePhase currentPhase;
+  final bool isWarTime;
 
   const WarPage({
     super.key,
@@ -1620,9 +1617,11 @@ class WarPage extends StatelessWidget {
     required this.currentPlayer,
     required this.playerNames,
     required this.currentPhase,
+    required this.isWarTime,
   });
 
   String get phaseName {
+    if (!isWarTime) return '非战争时间 (18:00-24:00)';
     switch (currentPhase) {
       case GamePhase.declare:
         return '宣战阶段 (0-10分钟)';
@@ -1641,6 +1640,7 @@ class WarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final canOperate = isWarTime && currentPhase != GamePhase.finished;
     return Column(
       children: [
         ResourceBar(gold: 0, soldiers: soldiers),
@@ -1651,16 +1651,16 @@ class WarPage extends StatelessWidget {
             children: [
               Text(
                 phaseName,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: currentPhase != GamePhase.finished ? Colors.green : Colors.red,
+                  color: canOperate ? Colors.green : Colors.red,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  currentPhase != GamePhase.finished ? '可操作' : '等待中',
+                  canOperate ? '可操作' : '不可操作',
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
@@ -1668,108 +1668,134 @@ class WarPage extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              if (attackableCities.isNotEmpty) ...[
-                const Text('可宣战城池', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10),
-                ...attackableCities.map((city) {
-                  final record = battleRecords[city.name];
-                  final myAttack = record?.attackers[currentPlayer] ?? 0;
-                  final otherAttackers = record?.attackers.entries.where((e) => e.key != currentPlayer).toList() ?? [];
-                  final canDeclare = currentPhase == GamePhase.declare && record == null;
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  city.name,
-                                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              if (canDeclare)
-                                ElevatedButton(
-                                  onPressed: () => onDeclareWar(city),
-                                  child: const Text('宣战'),
-                                ),
-                            ],
-                          ),
-                          Text('类型: ${city.type} 需求: ${city.requiredSoldiers}'),
-                          if (record != null) ...[
-                            const SizedBox(height: 8),
-                            Text('你投入: $myAttack'),
-                            if (otherAttackers.isNotEmpty) ...[
-                              const Text('其他玩家:'),
-                              ...otherAttackers.map((e) => Text('  ${displayName(e.key)}: ${e.value}')),
-                            ],
-                            if (record.leadingAttacker != null)
-                              Text(
-                                '当前进攻方: ${displayName(record.leadingAttacker!)}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: record.leadingAttacker == currentPlayer ? Colors.green : Colors.red,
-                                ),
-                              ),
-                            const SizedBox(height: 8),
-                            // 根据阶段显示操作按钮
-                            Wrap(
-                              spacing: 8,
+          child: attackableCities.isEmpty
+              ? Center(
+                  child: Text(
+                    '暂无可以宣战的城池',
+                    style: GoogleFonts.poppins(fontSize: 16, color: Colors.grey),
+                  ),
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: attackableCities.length,
+                  itemBuilder: (ctx, index) {
+                    final city = attackableCities[index];
+                    final record = battleRecords[city.name];
+                    final myAttack = record?.attackers[currentPlayer] ?? 0;
+                    final otherAttackers = record?.attackers.entries.where((e) => e.key != currentPlayer).toList() ?? [];
+                    final canDeclare = isWarTime && currentPhase == GamePhase.declare && record == null;
+                    return Card(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
-                                if (currentPhase == GamePhase.compete &&
-                                    record.attackers.containsKey(currentPlayer))
-                                  ElevatedButton(
-                                    onPressed: () => onAddTroops(context, record, true),
-                                    child: const Text('追加进攻'),
+                                Expanded(
+                                  child: Text(
+                                    city.name,
+                                    style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
                                   ),
-                                if (currentPhase == GamePhase.attack) ...[
-                                  if (record.leadingAttacker == currentPlayer)
-                                    ElevatedButton(
-                                      onPressed: () => onAddTroops(context, record, true),
-                                      child: const Text('追加进攻'),
-                                    ),
-                                  if (record.defender == currentPlayer)
-                                    ElevatedButton(
-                                      onPressed: () => onAddTroops(context, record, false),
-                                      child: const Text('追加防守'),
-                                    ),
-                                  if (record.leadingAttacker == currentPlayer)
-                                    ElevatedButton(
-                                      onPressed: () => onSurrender(record, currentPlayer, true),
-                                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                                      child: const Text('放弃进攻'),
-                                    ),
-                                  if (record.defender == currentPlayer)
-                                    ElevatedButton(
-                                      onPressed: () => onSurrender(record, currentPlayer, false),
-                                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                                      child: const Text('放弃防守'),
-                                    ),
-                                ],
+                                ),
+                                if (canDeclare)
+                                  ElevatedButton(
+                                    onPressed: () => onDeclareWar(city),
+                                    child: const Text('宣战'),
+                                  ),
                               ],
                             ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '类型: ${city.type} 需求: ${city.requiredSoldiers}',
+                              style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey[700]),
+                            ),
+                            if (record != null) ...[
+                              const SizedBox(height: 8),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange[50],
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('你投入: $myAttack', style: GoogleFonts.poppins(fontWeight: FontWeight.w500)),
+                                    if (otherAttackers.isNotEmpty) ...[
+                                      const SizedBox(height: 4),
+                                      Text('其他玩家:', style: GoogleFonts.poppins()),
+                                      ...otherAttackers.map((e) => Padding(
+                                        padding: const EdgeInsets.only(left: 8),
+                                        child: Text('  ${displayName(e.key)}: ${e.value}'),
+                                      )),
+                                    ],
+                                    if (record.leadingAttacker != null)
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          '当前进攻方: ${displayName(record.leadingAttacker!)}',
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.bold,
+                                            color: record.leadingAttacker == currentPlayer ? Colors.green : Colors.red,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              if (canOperate && (currentPhase == GamePhase.compete || currentPhase == GamePhase.attack))
+                                Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  children: [
+                                    if (currentPhase == GamePhase.compete && record.attackers.containsKey(currentPlayer))
+                                      ElevatedButton(
+                                        onPressed: () => onAddTroops(context, record, true),
+                                        child: const Text('追加进攻'),
+                                      ),
+                                    if (currentPhase == GamePhase.attack) ...[
+                                      if (record.leadingAttacker == currentPlayer)
+                                        ElevatedButton(
+                                          onPressed: () => onAddTroops(context, record, true),
+                                          child: const Text('追加进攻'),
+                                        ),
+                                      if (record.defender == currentPlayer)
+                                        ElevatedButton(
+                                          onPressed: () => onAddTroops(context, record, false),
+                                          child: const Text('追加防守'),
+                                        ),
+                                      if (record.leadingAttacker == currentPlayer)
+                                        ElevatedButton(
+                                          onPressed: () => onSurrender(record, currentPlayer, true),
+                                          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                                          child: const Text('放弃进攻'),
+                                        ),
+                                      if (record.defender == currentPlayer)
+                                        ElevatedButton(
+                                          onPressed: () => onSurrender(record, currentPlayer, false),
+                                          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                                          child: const Text('放弃防守'),
+                                        ),
+                                    ],
+                                  ],
+                                ),
+                            ],
                           ],
-                        ],
+                        ),
                       ),
-                    ),
-                  );
-                }),
-              ],
-            ],
-          ),
+                    );
+                  },
+                ),
         ),
       ],
     );
   }
 }
 
-// ---------- 玩法介绍页面 ----------
+// ---------- 玩法介绍页面（美化）----------
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
 
@@ -1806,13 +1832,9 @@ class IntroPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
+          Text(
             '游戏玩法介绍',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.orange,
-            ),
+            style: GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.orange),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 30),
@@ -1889,8 +1911,6 @@ class IntroPage extends StatelessWidget {
   }) {
     return Card(
       margin: const EdgeInsets.only(bottom: 20),
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(
@@ -1909,11 +1929,7 @@ class IntroPage extends StatelessWidget {
                 const SizedBox(width: 12),
                 Text(
                   title,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: color,
-                  ),
+                  style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: color),
                 ),
               ],
             ),
@@ -1931,7 +1947,7 @@ class IntroPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          Text(label, style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500)),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
@@ -1941,7 +1957,7 @@ class IntroPage extends StatelessWidget {
             ),
             child: Text(
               value,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.orange),
+              style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.orange),
             ),
           ),
         ],
@@ -1967,7 +1983,7 @@ class IntroPage extends StatelessWidget {
   }
 }
 
-// ---------- 个人信息页面 ----------
+// ---------- 个人信息页面（美化）----------
 class ProfilePage extends StatefulWidget {
   final String username;
   final int gold;
@@ -2056,11 +2072,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Center(
             child: Text(
               widget.username,
-              style: const TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.orange,
-              ),
+              style: GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.orange),
             ),
           ),
           const SizedBox(height: 10),
@@ -2071,273 +2083,220 @@ class _ProfilePageState extends State<ProfilePage> {
                 color: Colors.orange[100],
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Text(
+              child: Text(
                 '普通玩家',
-                style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                style: GoogleFonts.poppins(color: Colors.orange, fontWeight: FontWeight.bold),
               ),
             ),
           ),
           const SizedBox(height: 30),
 
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withValues(alpha: 0.1),
-                  spreadRadius: 5,
-                  blurRadius: 10,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                _buildProfileInfoItem(Icons.monetization_on, '黄金', widget.formatNumber(widget.gold), Colors.amber),
-                const Divider(),
-                _buildProfileInfoItem(Icons.shield, '士兵', widget.soldiers.toString(), Colors.red),
-                const Divider(),
-                _buildProfileInfoItem(Icons.location_city, '占领城池', widget.ownedCities.length.toString(), Colors.green),
-                const Divider(),
-                _buildProfileInfoItem(Icons.emoji_events, '您的爵位', widget.rank, Colors.purple),
-                const Divider(),
-                _buildProfileInfoItem(Icons.gavel, '可宣战兵力', widget.soldiers.toString(), Colors.orange),
-              ],
+          // 资源卡片
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  _buildProfileInfoItem(Icons.monetization_on, '黄金', widget.formatNumber(widget.gold), Colors.amber),
+                  const Divider(),
+                  _buildProfileInfoItem(Icons.shield, '士兵', widget.soldiers.toString(), Colors.red),
+                  const Divider(),
+                  _buildProfileInfoItem(Icons.location_city, '占领城池', widget.ownedCities.length.toString(), Colors.green),
+                  const Divider(),
+                  _buildProfileInfoItem(Icons.emoji_events, '您的爵位', widget.rank, Colors.purple),
+                  const Divider(),
+                  _buildProfileInfoItem(Icons.gavel, '可宣战兵力', widget.soldiers.toString(), Colors.orange),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 20),
 
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withValues(alpha: 0.1),
-                  spreadRadius: 5,
-                  blurRadius: 10,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      '🏅 城池加成',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          // 加成卡片
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '🏅 城池加成',
+                        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      IconButton(
+                        icon: Icon(_showCities ? Icons.expand_less : Icons.expand_more),
+                        onPressed: () {
+                          setState(() {
+                            _showCities = !_showCities;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  _buildBuffRow(Icons.trending_up, '每日黄金收益', '${widget.formatNumber(widget.totalDailyGold)}/天'),
+                  const SizedBox(height: 5),
+                  _buildBuffRow(Icons.shield, '带兵上限', '+${widget.formatNumber(widget.totalDailyCap)}'),
+                  if (_showCities) ...[
+                    const SizedBox(height: 15),
+                    Text(
+                      '已占领城池：',
+                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    IconButton(
-                      icon: Icon(_showCities ? Icons.expand_less : Icons.expand_more),
-                      onPressed: () {
-                        setState(() {
-                          _showCities = !_showCities;
-                        });
-                      },
-                    ),
+                    const SizedBox(height: 8),
+                    if (widget.ownedCities.isEmpty)
+                      Text('暂无占领城池', style: GoogleFonts.poppins(color: Colors.grey))
+                    else
+                      ...widget.ownedCities.map((city) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Row(
+                          children: [
+                            Icon(Icons.location_on, size: 18, color: Colors.orange),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text('${city.name} (${city.level}${city.isUpgraded ? '已升级' : ''})'),
+                            ),
+                            if (city.isUpgradable && widget.remainingUpgrades > 0)
+                              ElevatedButton(
+                                onPressed: () => widget.onUpgrade(city),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                  minimumSize: const Size(60, 30),
+                                ),
+                                child: const Text('升级'),
+                              ),
+                          ],
+                        ),
+                      )),
                   ],
-                ),
-                const SizedBox(height: 10),
-                _buildBuffRow(Icons.trending_up, '每日黄金收益', '${widget.formatNumber(widget.totalDailyGold)}/天'),
-                const SizedBox(height: 5),
-                _buildBuffRow(Icons.shield, '带兵上限', '+${widget.formatNumber(widget.totalDailyCap)}'),
-                if (_showCities) ...[
-                  const SizedBox(height: 15),
-                  const Text(
-                    '已占领城池：',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+
+                  const Divider(height: 30),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '⚔️ 当前战斗',
+                        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red),
+                      ),
+                      IconButton(
+                        icon: Icon(_showBattles ? Icons.expand_less : Icons.expand_more),
+                        onPressed: () {
+                          setState(() {
+                            _showBattles = !_showBattles;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  if (_showBattles) ...[
+                    if (widget.activeBattles.isEmpty)
+                      Text('暂无战斗', style: GoogleFonts.poppins(color: Colors.grey))
+                    else
+                      ...widget.activeBattles.map((record) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(record.cityName, style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+                            Text('进攻: ${record.attackers}'),
+                            if (record.defender != null) Text('防守: ${record.defender} 额外 ${record.defenderExtra}'),
+                          ],
+                        ),
+                      )),
+                  ],
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+
+          // 招募士兵卡片
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '招募士兵',
+                    style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _recruitController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            hintText: '输入数量',
+                            prefixIcon: const Icon(Icons.person_add),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          int? count = int.tryParse(_recruitController.text);
+                          if (count == null || count <= 0) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('请输入有效的数量'), backgroundColor: Colors.red),
+                            );
+                            return;
+                          }
+                          widget.onRecruitCustom(count);
+                          _recruitController.clear();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                        ),
+                        child: const Text('招募'),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 8),
-                  if (widget.ownedCities.isEmpty)
-                    const Text('暂无占领城池', style: TextStyle(color: Colors.grey))
-                  else
-                    ...widget.ownedCities.map((city) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Row(
-                        children: [
-                          Icon(Icons.location_on, size: 18, color: Colors.orange),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text('${city.name} (${city.level}${city.isUpgraded ? '已升级' : ''})'),
-                          ),
-                          if (city.isUpgradable && widget.remainingUpgrades > 0)
-                            ElevatedButton(
-                              onPressed: () => widget.onUpgrade(city),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                                minimumSize: const Size(60, 30),
-                              ),
-                              child: const Text('升级'),
-                            ),
-                        ],
-                      ),
-                    )),
+                  Text(
+                    '每名士兵消耗10黄金，当前可招募最多 ${widget.gold ~/ 10} 名',
+                    style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey[600]),
+                  ),
                 ],
-
-                const Divider(height: 30),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      '⚔️ 当前战斗',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red),
-                    ),
-                    IconButton(
-                      icon: Icon(_showBattles ? Icons.expand_less : Icons.expand_more),
-                      onPressed: () {
-                        setState(() {
-                          _showBattles = !_showBattles;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                if (_showBattles) ...[
-                  if (widget.activeBattles.isEmpty)
-                    const Text('暂无战斗', style: TextStyle(color: Colors.grey))
-                  else
-                    ...widget.activeBattles.map((record) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(record.cityName, style: const TextStyle(fontWeight: FontWeight.bold)),
-                          Text('进攻: ${record.attackers}'),
-                          if (record.defender != null) Text('防守: ${record.defender} 额外 ${record.defenderExtra}'),
-                        ],
-                      ),
-                    )),
-                ],
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withValues(alpha: 0.1),
-                  spreadRadius: 5,
-                  blurRadius: 10,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  '招募士兵',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _recruitController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: '输入数量',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          prefixIcon: const Icon(Icons.person_add),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        int? count = int.tryParse(_recruitController.text);
-                        if (count == null || count <= 0) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('请输入有效的数量'), backgroundColor: Colors.red),
-                          );
-                          return;
-                        }
-                        widget.onRecruitCustom(count);
-                        _recruitController.clear();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: const Text('招募', style: TextStyle(fontSize: 16, color: Colors.white)),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  '每名士兵消耗10黄金，当前可招募最多 ${widget.gold ~/ 10} 名',
-                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                ),
-              ],
+              ),
             ),
           ),
           const SizedBox(height: 20),
 
           if (widget.isAdmin)
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withValues(alpha: 0.1),
-                    spreadRadius: 5,
-                    blurRadius: 10,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: _buildActionItem(
-                Icons.admin_panel_settings,
-                '管理后台',
-                '修改玩家数据及活动奖励',
-                widget.onAdminPressed,
-                isLogout: false,
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: _buildActionItem(
+                  Icons.admin_panel_settings,
+                  '管理后台',
+                  '修改玩家数据及活动奖励',
+                  widget.onAdminPressed,
+                  isLogout: false,
+                ),
               ),
             ),
 
           const SizedBox(height: 20),
 
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withValues(alpha: 0.1),
-                  spreadRadius: 5,
-                  blurRadius: 10,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: _buildActionItem(
-              Icons.logout,
-              '退出登录',
-              '返回登录页面',
-              widget.onLogout,
-              isLogout: true,
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: _buildActionItem(
+                Icons.logout,
+                '退出登录',
+                '返回登录页面',
+                widget.onLogout,
+                isLogout: true,
+              ),
             ),
           ),
           const SizedBox(height: 20),
@@ -2351,9 +2310,9 @@ class _ProfilePageState extends State<ProfilePage> {
       children: [
         Icon(icon, size: 20, color: Colors.orange),
         const SizedBox(width: 10),
-        Text(label, style: const TextStyle(fontSize: 16)),
+        Text(label, style: GoogleFonts.poppins(fontSize: 16)),
         const Spacer(),
-        Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.orange)),
+        Text(value, style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.orange)),
       ],
     );
   }
@@ -2375,12 +2334,12 @@ class _ProfilePageState extends State<ProfilePage> {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
             ),
           ),
           Text(
             value,
-            style: TextStyle(
+            style: GoogleFonts.poppins(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: color,
@@ -2403,19 +2362,19 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       title: Text(
         title,
-        style: TextStyle(
+        style: GoogleFonts.poppins(
           fontWeight: FontWeight.w500,
           color: isLogout ? Colors.red : Colors.black87,
         ),
       ),
-      subtitle: Text(subtitle, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+      subtitle: Text(subtitle, style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey[600])),
       trailing: Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey[400]),
       onTap: onTap,
     );
   }
 }
 
-// ---------- 任务活动页面 ----------
+// ---------- 任务活动页面（美化）----------
 class TaskActivityPage extends StatelessWidget {
   final int gold;
   final int soldiers;
@@ -2475,9 +2434,9 @@ class TaskActivityPage extends StatelessWidget {
           ResourceBar(gold: gold, soldiers: soldiers),
           const SizedBox(height: 20),
 
-          const Text(
+          Text(
             '🔥 紧急待办',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red),
+            style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red),
           ),
           const SizedBox(height: 10),
 
@@ -2512,7 +2471,6 @@ class TaskActivityPage extends StatelessWidget {
                     trailing: ElevatedButton(
                       onPressed: () {
                         todo.isDone = true;
-                        // 可跳转到宣战页面
                       },
                       child: const Text('查看'),
                     ),
@@ -2557,61 +2515,54 @@ class TaskActivityPage extends StatelessWidget {
             }),
 
           if (todos.isEmpty)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Center(child: Text('暂无待办', style: TextStyle(fontSize: 16, color: Colors.grey))),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Center(
+                child: Text('暂无待办', style: GoogleFonts.poppins(fontSize: 16, color: Colors.grey)),
+              ),
             ),
 
           const SizedBox(height: 30),
 
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.purple[50],
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withValues(alpha: 0.1),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                const Row(
-                  children: [
-                    Icon(Icons.card_giftcard, color: Colors.purple, size: 40),
-                    SizedBox(width: 10),
-                    Text(
-                      '每日奖励',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.purple),
+          Card(
+            color: Colors.purple[50],
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  const Row(
+                    children: [
+                      Icon(Icons.card_giftcard, color: Colors.purple, size: 40),
+                      SizedBox(width: 10),
+                      Text(
+                        '每日奖励',
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.purple),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    '每日可领取一次',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: canClaim ? onClaim : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.purple,
+                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  '每日可领取一次',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: canClaim ? onClaim : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                    child: Text(
+                      canClaim ? '立即领取' : '今日已领',
+                      style: const TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
-                  child: Text(
-                    canClaim ? '立即领取' : '今日已领',
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 20),
@@ -2621,17 +2572,19 @@ class TaskActivityPage extends StatelessWidget {
   }
 }
 
-// ---------- 管理员后台 ----------
+// ---------- 管理员后台（美化）----------
 class AdminPanel extends StatefulWidget {
-  final String uid; // 管理员自己的uid
+  final String uid;
   final int activityGold;
   final int activitySoldiers;
+  final void Function(String) onPlayerDeleted;
 
   const AdminPanel({
     super.key,
     required this.uid,
     required this.activityGold,
     required this.activitySoldiers,
+    required this.onPlayerDeleted,
   });
 
   @override
@@ -2668,101 +2621,179 @@ class _AdminPanelState extends State<AdminPanel> {
     });
   }
 
+  Future<void> _deletePlayer(String uid, String username) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('确认删除'),
+        content: Text('确定要删除玩家 "$username" 吗？此操作不可恢复，该玩家拥有的城池将变为无主。'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('取消'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            child: const Text('删除'),
+          ),
+        ],
+      ),
+    );
+    if (confirm != true) return;
+
+    try {
+      final citiesSnapshot = await FirebaseFirestore.instance
+          .collection('cities')
+          .where('owner', isEqualTo: uid)
+          .get();
+      WriteBatch batch = FirebaseFirestore.instance.batch();
+      for (var doc in citiesSnapshot.docs) {
+        batch.update(doc.reference, {'owner': null});
+      }
+      await batch.commit();
+
+      await FirebaseFirestore.instance.collection('players').doc(uid).delete();
+
+      await _loadPlayers();
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('玩家 "$username" 已删除'), backgroundColor: Colors.green),
+      );
+      widget.onPlayerDeleted(uid);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('删除失败：$e'), backgroundColor: Colors.red),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('管理后台'),
-        backgroundColor: Colors.orange,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('选择玩家', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('选择玩家', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            DropdownButton<String>(
-              value: _selectedPlayerId,
-              hint: const Text('选择玩家'),
-              items: _players.map<DropdownMenuItem<String>>((p) {
-                return DropdownMenuItem<String>(
-                  value: p['uid'] as String,
-                  child: Text('${p['username']} (黄金: ${p['gold']}, 士兵: ${p['soldiers']})'),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedPlayerId = value;
-                  if (value != null) {
-                    final p = _players.firstWhere((p) => p['uid'] == value);
-                    _goldController.text = p['gold'].toString();
-                    _soldiersController.text = p['soldiers'].toString();
-                  } else {
-                    _goldController.clear();
-                    _soldiersController.clear();
-                  }
-                });
-              },
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: DropdownButton<String>(
+                value: _selectedPlayerId,
+                hint: const Text('选择玩家'),
+                isExpanded: true,
+                underline: const SizedBox(),
+                items: _players.map<DropdownMenuItem<String>>((p) {
+                  return DropdownMenuItem<String>(
+                    value: p['uid'] as String,
+                    child: Text('${p['username']} (黄金: ${p['gold']}, 士兵: ${p['soldiers']})'),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedPlayerId = value;
+                    if (value != null) {
+                      final p = _players.firstWhere((p) => p['uid'] == value);
+                      _goldController.text = p['gold'].toString();
+                      _soldiersController.text = p['soldiers'].toString();
+                    } else {
+                      _goldController.clear();
+                      _soldiersController.clear();
+                    }
+                  });
+                },
+              ),
             ),
             if (_selectedPlayerId != null) ...[
               const SizedBox(height: 20),
-              const Text('修改资源', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text('修改资源', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               TextField(
                 controller: _goldController,
                 decoration: const InputDecoration(labelText: '黄金'),
                 keyboardType: TextInputType.number,
               ),
+              const SizedBox(height: 12),
               TextField(
                 controller: _soldiersController,
                 decoration: const InputDecoration(labelText: '士兵'),
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () async {
-                  int newGold = int.tryParse(_goldController.text) ?? 0;
-                  int newSoldiers = int.tryParse(_soldiersController.text) ?? 0;
-                  await FirebaseFirestore.instance
-                      .collection('players')
-                      .doc(_selectedPlayerId)
-                      .update({'gold': newGold, 'soldiers': newSoldiers});
-                  _loadPlayers();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('已更新')),
-                  );
-                },
-                child: const Text('保存修改'),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        int newGold = int.tryParse(_goldController.text) ?? 0;
+                        int newSoldiers = int.tryParse(_soldiersController.text) ?? 0;
+                        await FirebaseFirestore.instance
+                            .collection('players')
+                            .doc(_selectedPlayerId)
+                            .update({'gold': newGold, 'soldiers': newSoldiers});
+                        _loadPlayers();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('已更新')),
+                        );
+                      },
+                      child: const Text('保存修改'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final p = _players.firstWhere((p) => p['uid'] == _selectedPlayerId);
+                        _deletePlayer(p['uid'], p['username']);
+                      },
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      child: const Text('删除玩家'),
+                    ),
+                  ),
+                ],
               ),
             ],
             const Divider(height: 40),
-            const Text('活动奖励设置', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('活动奖励设置', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             TextField(
               controller: _activityGoldController,
               decoration: const InputDecoration(labelText: '活动黄金'),
               keyboardType: TextInputType.number,
             ),
+            const SizedBox(height: 12),
             TextField(
               controller: _activitySoldiersController,
               decoration: const InputDecoration(labelText: '活动士兵'),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                int newGold = int.tryParse(_activityGoldController.text) ?? 10000;
-                int newSoldiers = int.tryParse(_activitySoldiersController.text) ?? 10;
-                await FirebaseFirestore.instance.collection('config').doc('activity').set({
-                  'gold': newGold,
-                  'soldiers': newSoldiers,
-                });
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('活动奖励已更新')),
-                );
-              },
-              child: const Text('保存活动奖励'),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () async {
+                  int newGold = int.tryParse(_activityGoldController.text) ?? 10000;
+                  int newSoldiers = int.tryParse(_activitySoldiersController.text) ?? 10;
+                  await FirebaseFirestore.instance.collection('config').doc('activity').set({
+                    'gold': newGold,
+                    'soldiers': newSoldiers,
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('活动奖励已更新')),
+                  );
+                },
+                child: const Text('保存活动奖励'),
+              ),
             ),
           ],
         ),

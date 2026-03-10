@@ -1,5 +1,5 @@
 name: flutter_application_1
-description: "小鱼霸业 联机版"
+description: 小鱼霸业 - 策略游戏
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -13,7 +13,8 @@ dependencies:
   firebase_core: ^3.8.0
   firebase_auth: ^5.3.1
   cloud_firestore: ^5.4.4
-  shared_preferences: ^2.2.2   # 用于本地缓存（可选）
+  shared_preferences: ^2.2.2
+  google_fonts: ^6.2.1  # 已添加
 
 dev_dependencies:
   flutter_test:
